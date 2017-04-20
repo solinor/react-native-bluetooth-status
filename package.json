@@ -1,0 +1,35 @@
+
+{
+  "name": "react-native-bluetooth-manager",
+  "version": "1.0.0",
+  "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "bluetooth",
+    "ios"
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:solinor/react-native-bluetooth-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solinor/react-native-bluetooth-manager/issues"
+  },
+  "homepage": "https://github.com/solinor/react-native-bluetooth-manager#readme",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "author": "Juha Linnanen / Solinor Oy (http://www.solinor.com)",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=15.4.2",
+    "react-native": ">=0.41.2"
+  }
+}
