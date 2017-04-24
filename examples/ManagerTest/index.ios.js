@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+// @flow
+
+import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -7,35 +9,35 @@ import {
   Alert,
   AppState
 } from 'react-native';
-import { BluetoothManager } from 'react-native-bluetooth-manager'
+import { BluetoothStatus } from 'react-native-bluetooth-status'
 
 export default class ManagerTest extends Component {
 
-  constructor(props) {
-    super(props);
+  state = {
+    bluetoothState: '',
+    appState: AppState.currentState
+  };
 
-    this.state = {
-      bluetoothState: '',
-      appState: AppState.currentState
-    };
-  }
-
-  async componentDidMount() {
+  componentDidMount() {
     AppState.addEventListener('change', (nextAppState) => this._handleAppStateChange(nextAppState));
-    const isEnabled = await this.updateBluetoothStatus();
-    if (!isEnabled) {
-      this.requireBluetooth();
-    }
+    this.checkInitialBluetoothState();
   }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', this._handleAppStateChange);
   }
 
+  async checkInitialBluetoothState() {
+    const isEnabled = await this.updateBluetoothStatus();
+    if (!isEnabled) {
+      this.requireBluetooth();
+    }
+  }
+
   async updateBluetoothStatus() {
     return new Promise(async (resolve, reject) => {
       try {
-        const isEnabled = await BluetoothManager.getBluetoothState();
+        const isEnabled = await BluetoothStatus.state();
         this.setState({ bluetoothState: (isEnabled) ? 'On' : 'Off'});
         resolve(isEnabled);
       } catch (error) { reject(error) }
@@ -46,12 +48,12 @@ export default class ManagerTest extends Component {
     if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
       this.updateBluetoothStatus();
     }
-    this.setState({appState: nextAppState});
+    this.setState({ appState: nextAppState });
   };
 
   requireBluetooth() {
     Alert.alert('bt required', 'much required',
-      [{ text: 'Settings', onPress: () => BluetoothManager.openBluetoothSettings() },
+      [{ text: 'Settings', onPress: () => BluetoothStatus.openBluetoothSettings() },
        { text: 'Cancel', onPress: () => {} }],
        { cancelable: false }
     );

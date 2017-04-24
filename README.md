@@ -1,16 +1,16 @@
 
-# react-native-bluetooth-manager
+# react-native-bluetooth-status
 
 React Native library to query and manage bluetooth state. Querying the bluetooth state works cross-plaform (iOS & Android). 
 In addition, iOS can open the bluetooth settings and Android can directly enable / disable bluetooth.
 
 ## Getting started
 
-`$ npm install react-native-bluetooth-manager --save`
+`$ npm install react-native-bluetooth-status --save`
 
 ### Mostly automatic installation
 
-`$ react-native link react-native-bluetooth-manager`
+`$ react-native link react-native-bluetooth-status`
 
 ### Manual installation
 
@@ -18,7 +18,7 @@ In addition, iOS can open the bluetooth settings and Android can directly enable
 #### iOS
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-bluetooth-manager` and add `RNBluetoothManager.xcodeproj`
+2. Go to `node_modules` ➜ `react-native-bluetooth-status` and add `RNBluetoothManager.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libRNBluetoothManager.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Run your project (`Cmd+R`)<
 
@@ -29,22 +29,22 @@ In addition, iOS can open the bluetooth settings and Android can directly enable
   - Add `new RNBluetoothManagerPackage()` to the list returned by the `getPackages()` method
 2. Append the following lines to `android/settings.gradle`:
   	```
-  	include ':react-native-bluetooth-manager'
-  	project(':react-native-bluetooth-manager').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-bluetooth-manager/android')
+  	include ':react-native-bluetooth-status'
+  	project(':react-native-bluetooth-status').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-bluetooth-status/android')
   	```
 3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
   	```
-      compile project(':react-native-bluetooth-manager')
+      compile project(':react-native-bluetooth-status')
   	```
 ## Usage
 ```javascript
-import { BluetoothManager } from 'react-native-bluetooth-manager';
+import { BluetoothStatus } from 'react-native-bluetooth-status';
 
 ...
 
   async getBluetoothState() {
     try {
-      const isEnabled = await BluetoothManager.state();
+      const isEnabled = await BluetoothStatus.state();
     } catch (error) { console.error(error); }
   }
 

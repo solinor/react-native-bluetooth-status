@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -6,29 +7,27 @@ import {
   View,
   Button
 } from 'react-native';
-import { BluetoothManager } from 'react-native-bluetooth-manager'
+import { BluetoothStatus } from 'react-native-bluetooth-status'
 
 export default class ManagerTest extends Component {
 
-  constructor(props) {
-    super(props);
+  state = {
+    bluetoothState: ''
+  };
 
-    this.state = {
-      bluetoothState: ''
-    };
+  componentDidMount() {
+    this.checkInitialBluetoothState();
   }
 
-  async componentDidMount() {
-    try {
-      const isEnabled = await BluetoothManager.state();
-      this.setState({ bluetoothState: (isEnabled) ? 'On' : 'Off'});
-    } catch (error) { console.error(error); }
+  async checkInitialBluetoothState() {
+    const isEnabled = await BluetoothStatus.state();
+    this.setState({ bluetoothState: (isEnabled) ? 'Off' : 'On'});
   }
 
   async toggleBluetooth() {
     try {
-      const isEnabled = await BluetoothManager.state();
-      BluetoothManager.enable(!isEnabled);
+      const isEnabled = await BluetoothStatus.state();
+      BluetoothStatus.enable(!isEnabled);
       this.setState({ bluetoothState: (isEnabled) ? 'Off' : 'On'});
     } catch (error) { console.error(error); }
   }

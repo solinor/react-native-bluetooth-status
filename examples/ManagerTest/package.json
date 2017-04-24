@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "~15.4.1",
 		"react-native": "0.42.3",
-		"react-native-bluetooth-manager": "1.0.0"
+		"react-native-bluetooth-status": "1.0.0"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",

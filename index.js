@@ -1,11 +1,17 @@
-import {Platform} from 'react-native'
-import {NativeModules, DeviceEventEmitter, NativeEventEmitter} from 'react-native'
+// @flow
+
+import { Platform } from 'react-native'
+import { NativeModules, DeviceEventEmitter, NativeEventEmitter} from 'react-native'
+
+const { BluetoothManager } = NativeModules;
 
 class RNBluetoothManager {
 
+  subscription: mixed;
+  subscriber: Function;
+
   constructor() {
-    this.bluetoothManager = NativeModules.RNBluetoothManager;
-    const bluetoothEvent = new NativeEventEmitter(NativeModules.RNBluetoothManager);
+    const bluetoothEvent = new NativeEventEmitter(BluetoothManager);
     this.subscription = bluetoothEvent.addListener('bluetoothStatus', (...args) => {
         this.subscriber(this, args);
       }
@@ -17,7 +23,7 @@ class RNBluetoothManager {
   async state() {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
-        this.bluetoothManager.getBluetoothState((error, status) => {
+        BluetoothManager.getBluetoothState((error, status) => {
           if (error) {
             reject(error);
             return;
@@ -33,16 +39,16 @@ class RNBluetoothManager {
           this.subscriber = () => {};
           resolve(bluetoothState === 'on');
         };
-        this.bluetoothManager.initialize();
+        BluetoothManager.initialize();
       }
     });
   };
 
-  async enable(enabled = true) {
+  async enable(enabled: boolean = true) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         if (enabled) {
-          this.bluetoothManager.setBluetoothOn((error, done) => {
+          BluetoothManager.setBluetoothOn((error, done) => {
             if (error) {
               reject(error);
               return;
@@ -50,7 +56,7 @@ class RNBluetoothManager {
             resolve(done);
           });
         } else {
-          this.bluetoothManager.setBluetoothOff((error, done) => {
+          BluetoothManager.setBluetoothOff((error, done) => {
             if (error) {
               reject(error);
               return;
@@ -65,15 +71,15 @@ class RNBluetoothManager {
   }
 
   async disable() {
-    return enable(false);
+    return this.enable(false);
   };
 
   openBluetoothSettings() {
     if (Platform.OS === 'ios') {
-      this.bluetoothManager.openBluetoothSettings(() => {
+      BluetoothManager.openBluetoothSettings(() => {
       })
     }
   }
 }
 
-export let BluetoothManager = new RNBluetoothManager();
+export let BluetoothStatus = new RNBluetoothManager();

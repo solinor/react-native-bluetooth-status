@@ -1,7 +1,6 @@
-
 {
-  "name": "react-native-bluetooth-manager",
-  "version": "1.0.0",
+  "name": "react-native-bluetooth-status",
+  "version": "1.0.1",
   "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
   "main": "index.js",
   "scripts": {
@@ -11,18 +10,17 @@
     "react-native",
     "react-component",
     "bluetooth",
-    "ios"
+    "ios",
     "android"
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:solinor/react-native-bluetooth-manager.git"
+    "url": "git@github.com:solinor/react-native-bluetooth-status.git"
   },
   "bugs": {
-    "url": "https://github.com/solinor/react-native-bluetooth-manager/issues"
+    "url": "https://github.com/solinor/react-native-bluetooth-status/issues"
   },
-  "homepage": "https://github.com/solinor/react-native-bluetooth-manager#readme",
-  "main": "index.js",
+  "homepage": "https://github.com/solinor/react-native-bluetooth-status#readme",
   "directories": {
     "example": "examples"
   },
@@ -31,5 +29,14 @@
   "peerDependencies": {
     "react": ">=15.4.2",
     "react-native": ">=0.41.2"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-native": "^0.41.2"
+  },
+  "devDependencies": {
+    "react": "^15.4.2",
+    "react-native": "^0.41.2",
+    "flow-bin": "^0.44.2"
   }
 }
