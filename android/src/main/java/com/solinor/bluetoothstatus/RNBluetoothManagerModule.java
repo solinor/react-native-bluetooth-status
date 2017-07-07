@@ -1,8 +1,6 @@
-
-package com.reactlibrary;
+package com.solinor.bluetoothstatus;
 
 import android.bluetooth.BluetoothAdapter;
-import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;

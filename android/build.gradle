@@ -1,3 +1,5 @@
+apply plugin: 'com.android.library'
+
 
 buildscript {
     repositories {
@@ -33,4 +35,3 @@ repositories {
 dependencies {
     compile 'com.facebook.react:react-native:+'
 }
-  

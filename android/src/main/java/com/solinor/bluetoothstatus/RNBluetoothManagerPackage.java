@@ -1,5 +1,4 @@
-
-package com.reactlibrary;
+package com.solinor.bluetoothstatus;
 
 import java.util.Arrays;
 import java.util.Collections;
