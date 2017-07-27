@@ -21,7 +21,7 @@ export default class ManagerTest extends Component {
 
   async checkInitialBluetoothState() {
     const isEnabled = await BluetoothStatus.state();
-    this.setState({ bluetoothState: (isEnabled) ? 'Off' : 'On'});
+    this.setState({ bluetoothState: (isEnabled) ? 'On' : 'Off'});
   }
 
   async toggleBluetooth() {

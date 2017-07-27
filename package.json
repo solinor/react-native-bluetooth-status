@@ -27,16 +27,16 @@
   "author": "Juha Linnanen / Solinor Oy (http://www.solinor.com)",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=15.4.2",
-    "react-native": ">=0.41.2"
+    "react": ">=16.0.0",
+    "react-native": ">=0.44.0"
   },
   "dependencies": {
     "react": "^15.4.2",
-    "react-native": "^0.41.2"
+    "react-native": "^0.44.0"
   },
   "devDependencies": {
     "react": "react@16.0.0-alpha.6",
-    "react-native": "^0.45.1",
+    "react-native": "^0.44.0",
     "flow-bin": "^0.44.2"
   }
 }

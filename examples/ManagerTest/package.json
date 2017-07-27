@@ -5,11 +5,12 @@
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
 		"test": "jest"
+		"postinstall": "sed -i '' 's\/#import <RCTAnimation\\/RCTValueAnimatedNode.h>\/#import \"RCTValueAnimatedNode.h\"\/' ./node_modules/react-native/Libraries/NativeAnimation/RCTNativeAnimatedNodesManager.h",
 	},
 	"dependencies": {
-		"react": "~15.4.1",
-		"react-native": "0.42.3",
-		"react-native-bluetooth-status": "1.0.0"
+		"react": "16.0.0-alpha.6",
+		"react-native": "0.44.1",
+		"react-native-bluetooth-status": "file:../../"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",

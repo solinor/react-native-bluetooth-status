@@ -3,15 +3,15 @@
 import { Platform } from 'react-native'
 import { NativeModules, DeviceEventEmitter, NativeEventEmitter} from 'react-native'
 
-const { BluetoothManager } = NativeModules;
+const { RNBluetoothManager } = NativeModules;
 
-class RNBluetoothManager {
+class BluetoothManager {
 
   subscription: mixed;
   subscriber: Function;
 
   constructor() {
-    const bluetoothEvent = new NativeEventEmitter(BluetoothManager);
+    const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager);
     this.subscription = bluetoothEvent.addListener('bluetoothStatus', (...args) => {
         this.subscriber(this, args);
       }
@@ -23,7 +23,7 @@ class RNBluetoothManager {
   async state() {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
-        BluetoothManager.getBluetoothState((error, status) => {
+        RNBluetoothManager.getBluetoothState((error, status) => {
           if (error) {
             reject(error);
             return;
@@ -39,7 +39,7 @@ class RNBluetoothManager {
           this.subscriber = () => {};
           resolve(bluetoothState === 'on');
         };
-        BluetoothManager.initialize();
+        RNBluetoothManager.initialize();
       }
     });
   };
@@ -48,7 +48,7 @@ class RNBluetoothManager {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         if (enabled) {
-          BluetoothManager.setBluetoothOn((error, done) => {
+          RNBluetoothManager.setBluetoothOn((error, done) => {
             if (error) {
               reject(error);
               return;
@@ -56,7 +56,7 @@ class RNBluetoothManager {
             resolve(done);
           });
         } else {
-          BluetoothManager.setBluetoothOff((error, done) => {
+          RNBluetoothManager.setBluetoothOff((error, done) => {
             if (error) {
               reject(error);
               return;
@@ -76,10 +76,10 @@ class RNBluetoothManager {
 
   openBluetoothSettings() {
     if (Platform.OS === 'ios') {
-      BluetoothManager.openBluetoothSettings(() => {
+      RNBluetoothManager.openBluetoothSettings(() => {
       })
     }
   }
 }
 
-export let BluetoothStatus = new RNBluetoothManager();
+export let BluetoothStatus = new BluetoothManager();
