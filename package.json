@@ -1,6 +1,6 @@
 {
   "name": "react-native-bluetooth-status",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
   "main": "index.js",
   "scripts": {
@@ -27,15 +27,15 @@
   "author": "Juha Linnanen / Solinor Oy (http://www.solinor.com)",
   "license": "MIT",
   "peerDependencies": {
-    "react":  "16.0.0-alpha.6",
+    "react": "16.0.0-alpha.6",
     "react-native": ">=0.44.1"
   },
   "dependencies": {
-    "react":  "16.0.0-alpha.6",
+    "react": "16.0.0-alpha.6",
     "react-native": "^0.44.1"
   },
   "devDependencies": {
-    "react":  "16.0.0-alpha.6",
+    "react": "16.0.0-alpha.6",
     "react-native": "^0.44.1",
     "flow-bin": "^0.44.2"
   }
