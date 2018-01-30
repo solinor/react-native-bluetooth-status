@@ -64,3 +64,7 @@ For further usage examples, see the [example project](examples/ManagerTest/) usi
 #### Thanks
 
 Thanks go to [react-native-bluetooth-state](https://github.com/frostney/react-native-bluetooth-state) library, which was used as the foundation of the iOS implementation. That library hasn't been maintained though, and didn't support Android, or anything other than getting the state.
+
+#### License
+
+MIT
