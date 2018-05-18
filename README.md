@@ -25,8 +25,21 @@ In addition, iOS can open the bluetooth settings and Android can directly enable
 #### Android
 
 1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import com.solinor.bluetoothstatus.RNBluetoothManagerPackage;` to the imports at the top of the file
-  - Add `new RNBluetoothManagerPackage()` to the list returned by the `getPackages()` method
+
+1.1 Add `import com.solinor.bluetoothstatus.RNBluetoothManagerPackage;` to the imports at the top of the file
+
+1.2 Add `new RNBluetoothManagerPackage()` to the list returned by the `getPackages()` method in that file     
+Note: If you add it to the end of the list it should look something like this:
+   ```
+    @Override
+    protected List<ReactPackage> getPackages() {
+      return Arrays.<ReactPackage>asList(
+          new MainReactPackage(),         // Note the addtional comma needed for the original last item in the list
+          new RNBluetoothManagerPackage() // For https://github.com/solinor/react-native-bluetooth-status
+      );
+    }
+   ```
+
 2. Append the following lines to `android/settings.gradle`:
   	```
   	include ':react-native-bluetooth-status'
