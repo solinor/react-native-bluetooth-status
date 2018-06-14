@@ -61,15 +61,5 @@ RCT_EXPORT_METHOD(initialize) {
     [self sendEventWithName:@"bluetoothStatus" body:stateName];
 }
 
-RCT_EXPORT_METHOD(openBluetoothSettings:(RCTResponseSenderBlock)callback) {
-    NSLog(@"iOS: trying to open settings");
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"App-Prefs:root=Bluetooth"]];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=Bluetooth"]];
-    }
-    callback(@[[NSNull null]]);
-}
-
 - (NSArray<NSString *> *)supportedEvents { return @[@"bluetoothStatus"]; }
 @end

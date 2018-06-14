@@ -53,8 +53,7 @@ export default class ManagerTest extends Component {
 
   requireBluetooth() {
     Alert.alert('bt required', 'much required',
-      [{ text: 'Settings', onPress: () => BluetoothStatus.openBluetoothSettings() },
-       { text: 'Cancel', onPress: () => {} }],
+      [{ text: 'Cancel', onPress: () => {} }],
        { cancelable: false }
     );
   }
