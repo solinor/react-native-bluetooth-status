@@ -72,7 +72,6 @@ For further usage examples, see the [example project](examples/ManagerTest/) usi
 | **state** | Returns a promise, which will return a boolean value, `true` if bluetooth is enabled, `false` if disabled.                                                                                                                                                                                                                                                                                                            |
 | **enable**    | **Android only** Changes bluetooth state. Takes boolean parameter (defaults to true), `true` to enable, `false` to disable. Returns a promise, which returns whether the change was successful or not.           |
 | **disable**    | **Android only** Disables bluetooth, same end result as calling `enable(false)`. Returns a promise, which returns whether the change was successful or not.           |
-| **openBluetoothSettings**    | **iOS only** Open OS Settings directly to bluetooth settings, recommended to use from Alert dialog, where user decides to change bluetooth state.            |
 
 #### Thanks
 

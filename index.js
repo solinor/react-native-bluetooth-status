@@ -73,13 +73,6 @@ class BluetoothManager {
   async disable() {
     return this.enable(false);
   };
-
-  openBluetoothSettings() {
-    if (Platform.OS === 'ios') {
-      RNBluetoothManager.openBluetoothSettings(() => {
-      })
-    }
-  }
 }
 
 export let BluetoothStatus = new BluetoothManager();
