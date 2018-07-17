@@ -8,16 +8,13 @@ const { RNBluetoothManager } = NativeModules;
 class BluetoothManager {
 
   subscription: mixed;
-  subscriber: Function;
+  bluetoothState: 'unknown' | 'resetting' | 'unsupported' | 'unauthorized' |'off' | 'on' | 'unknown';
 
   constructor() {
     const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager);
-    this.subscription = bluetoothEvent.addListener('bluetoothStatus', (...args) => {
-        this.subscriber(this, args);
-      }
-    );
-    this.subscriber = () => {
-    }
+    this.subscription = bluetoothEvent.addListener('bluetoothStatus', (state) => {
+      this.bluetoothState = state;
+    });
   }
 
   async state() {
@@ -31,15 +28,7 @@ class BluetoothManager {
           resolve(status);
         });
       } else if (Platform.OS === 'ios') {
-        this.subscriber = (manager, responseArray) => {
-          let bluetoothState = responseArray[0];
-          if (bluetoothState !== 'on' && bluetoothState !== 'off') {
-            return;
-          }
-          this.subscriber = () => {};
-          resolve(bluetoothState === 'on');
-        };
-        RNBluetoothManager.initialize();
+        resolve(this.bluetoothState === 'on');
       }
     });
   };
