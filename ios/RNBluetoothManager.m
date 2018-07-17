@@ -66,7 +66,6 @@ RCT_EXPORT_METHOD(initialize) {
 
 -(void)startObserving {
     hasListeners = YES;
-    NSLog(@"startObserving %@", stateName);
     [self sendEventWithName:@"bluetoothStatus" body:stateName];
 }
 
