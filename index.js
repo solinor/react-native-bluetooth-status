@@ -2,6 +2,7 @@
 
 import { Platform } from 'react-native'
 import { NativeModules, DeviceEventEmitter, NativeEventEmitter} from 'react-native'
+import waitUntil from 'wait-until'
 
 const { RNBluetoothManager } = NativeModules;
 
@@ -28,7 +29,15 @@ class BluetoothManager {
           resolve(status);
         });
       } else if (Platform.OS === 'ios') {
-        resolve(this.bluetoothState === 'on');
+        waitUntil()
+          .interval(100)
+          .times(10)
+          .condition(() => {
+            return this.bluetoothState !== undefined
+          })
+          .done(() => {
+            resolve(this.bluetoothState === 'on');
+          })
       }
     });
   };
