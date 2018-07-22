@@ -2,7 +2,7 @@
 
 import { Platform } from 'react-native'
 import { NativeModules, DeviceEventEmitter, NativeEventEmitter} from 'react-native'
-import waitUntil from 'wait-until'
+import waitUntil from '@cs125/wait-until'
 
 const { RNBluetoothManager } = NativeModules;
 
