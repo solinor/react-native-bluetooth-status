@@ -6,8 +6,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.module.annotations.ReactModule;
 
+@ReactModule(name = RNBluetoothManagerModule.MODULE_NAME)
 public class RNBluetoothManagerModule extends ReactContextBaseJavaModule {
+
+    final static String MODULE_NAME = "RNBluetoothManager";
 
     private final ReactApplicationContext reactContext;
 
@@ -21,7 +25,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "RNBluetoothManager";
+        return this.MODULE_NAME;
     }
 
     @ReactMethod
