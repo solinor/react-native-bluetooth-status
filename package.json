@@ -4,7 +4,10 @@
   "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ci:test": "jest",
+    "ci:publish": "yarn semantic-release",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "react-native",
@@ -31,11 +34,28 @@
     "react-native": ">=0.55.3"
   },
   "devDependencies": {
+    "@semantic-release/git": "^7.0.18",
+    "flow-bin": "^0.44.2",
     "react": "^16.3.1",
     "react-native": "?=0.55.3",
-    "flow-bin": "^0.44.2"
+    "semantic-release": "^15.14.0"
   },
   "dependencies": {
     "@cs125/wait-until": "^0.0.3"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": "package.json",
+          "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ]
+    ]
   }
 }
