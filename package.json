@@ -4,8 +4,8 @@
   "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "ci:test": "jest",
+    "test": "jest --passWithNoTests",
+    "ci:test": "jest --passWithNoTests",
     "ci:publish": "yarn semantic-release",
     "semantic-release": "semantic-release"
   },
@@ -41,7 +41,8 @@
     "semantic-release": "^15.14.0"
   },
   "dependencies": {
-    "@cs125/wait-until": "^0.0.3"
+    "@cs125/wait-until": "^0.0.3",
+    "jest": "^24.9.0"
   },
   "release": {
     "plugins": [
