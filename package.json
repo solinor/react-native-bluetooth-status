@@ -35,9 +35,9 @@
   },
   "devDependencies": {
     "@semantic-release/git": "^7.0.18",
-    "flow-bin": "^0.44.2",
+    "flow-bin": "^0.114.0",
     "react": "^16.3.1",
-    "react-native": "?=0.55.3",
+    "react-native": "0.55.3",
     "semantic-release": "^15.14.0"
   },
   "dependencies": {
