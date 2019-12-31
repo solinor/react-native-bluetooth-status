@@ -1,41 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-import {BluetoothStatus} from 'react-native-bluetooth-status';
-
-const updateBluetoothStatus = async () => {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const isEnabled = await BluetoothStatus.state();
-      resolve(isEnabled);
-    } catch (error) {
-      reject(error);
-    }
-  });
-};
+import React from 'react';
+import {SafeAreaView, Text, StatusBar, Platform, Button} from 'react-native';
+import {useBluetoothStatus} from 'react-native-bluetooth-status';
 
 const App = () => {
-  const [btStatus, setBtStatus] = useState(undefined);
-  console.log('btStatus', btStatus);
-  useEffect(() => {
-    (async function() {
-      const isEnabled = await updateBluetoothStatus();
-      console.log(isEnabled);
-      setBtStatus(isEnabled);
-    })();
-  }, []);
+  const [btStatus, isPending, setBluetooth] = useBluetoothStatus();
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
         <Text>New tester is here!</Text>
-        {btStatus !== undefined && <Text>{btStatus ? 'On' : 'Off'}</Text>}
+        {!isPending && <Text>{btStatus ? 'On' : 'Off'}</Text>}
+        {Platform.OS === 'android' && (
+          <Button title="Toggle BT" onPress={() => setBluetooth(!btStatus)} />
+        )}
       </SafeAreaView>
     </>
   );

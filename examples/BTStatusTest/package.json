@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "android:dev": "yarn relative-deps && yarn android",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
