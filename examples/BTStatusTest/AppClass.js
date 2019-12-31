@@ -13,26 +13,22 @@ class AppClass extends React.Component {
   componentDidMount() {
     this.checkInitialBluetoothState();
     BluetoothStatus.addListener(isEnabled => {
-      console.log('listener received bt state: ', isEnabled);
       this.setState({bluetoothState: isEnabled ? 'On' : 'Off'});
     });
   }
 
   async checkInitialBluetoothState() {
     const isEnabled = await BluetoothStatus.state();
-    console.log('got bt state: ', isEnabled);
     this.setState({bluetoothState: isEnabled ? 'On' : 'Off'});
   }
 
   async toggleBluetooth() {
     const isEnabled = await BluetoothStatus.state();
     BluetoothStatus.enable(!isEnabled);
-    //this.setState({bluetoothState: isEnabled ? 'Off' : 'On'});
   }
 
   render() {
     const {bluetoothState} = this.state;
-    console.log('render bt state: ', bluetoothState);
     return (
       <>
         <StatusBar barStyle="dark-content" />
