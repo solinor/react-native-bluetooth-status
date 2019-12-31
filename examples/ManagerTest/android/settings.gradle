@@ -1,5 +1,0 @@
-rootProject.name = 'ManagerTest'
-
-include ':app'
-include ':react-native-bluetooth-status'
-project(':react-native-bluetooth-status').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-bluetooth-status/android')
