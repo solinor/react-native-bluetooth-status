@@ -27,22 +27,21 @@
   "directories": {
     "example": "examples"
   },
-  "author": "Juha Linnanen / Solinor Oy (http://www.solinor.com)",
+  "author": "Juha Linnanen",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.3.1",
-    "react-native": ">=0.55.3"
+    "react": "^16.8.0",
+    "react-native": "^0.61.0"
   },
   "devDependencies": {
     "@semantic-release/git": "^7.0.18",
-    "flow-bin": "^0.44.2",
-    "react": "^16.3.1",
-    "react-native": "?=0.55.3",
-    "semantic-release": "^15.14.0"
+    "flow-bin": "^0.114.0",
+    "semantic-release": "^15.14.0",
+    "jest": "^24.9.0"
   },
   "dependencies": {
     "@cs125/wait-until": "^0.0.3",
-    "jest": "^24.9.0"
+    "react-native": "^0.61.0"
   },
   "release": {
     "plugins": [
