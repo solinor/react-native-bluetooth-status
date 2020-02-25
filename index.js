@@ -59,10 +59,12 @@ class BluetoothManager {
   }
 
   manualInit() {
-    if(!this.inited) {
-      RNBluetoothManager.manualInitialization()
+    if (Platform.OS === "ios") {
+      if(!this.inited) {
+        RNBluetoothManager.manualInitialization()
+      }
+      this.inited = true
     }
-    this.inited = true
   }
   
   enable(enabled: boolean = true) {
