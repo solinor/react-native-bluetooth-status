@@ -61,13 +61,17 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
         }
     };
 
+    private void registerBroadcastReceiver() {
+        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        reactContext.registerReceiver(receiver, filter);
+    }
+
     public RNBluetoothManagerModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
         reactContext.addLifecycleEventListener(this);
         btAdapter = BluetoothAdapter.getDefaultAdapter();
-        IntentFilter filter = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-        reactContext.registerReceiver(receiver, filter);
+        registerBroadcastReceiver();
     }
 
     @Override
@@ -97,6 +101,7 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
 
     @Override
     public void onHostResume() {
+        registerBroadcastReceiver();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
