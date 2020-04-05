@@ -13,6 +13,7 @@ const { RNBluetoothManager } = NativeModules;
 const BT_STATUS_EVENT = "bluetoothStatus";
 class BluetoothManager {
   subscription: mixed;
+  inited: boolean;
   bluetoothState:
     | "unknown"
     | "resetting"
@@ -43,6 +44,7 @@ class BluetoothManager {
   }
 
   async state() {
+    this.manualInit()
     return new Promise((resolve, reject) => {
       waitUntil()
         .interval(100)
@@ -56,6 +58,15 @@ class BluetoothManager {
     });
   }
 
+  manualInit() {
+    if (Platform.OS === "ios") {
+      if(!this.inited) {
+        RNBluetoothManager.manualInitialization()
+      }
+      this.inited = true
+    }
+  }
+  
   enable(enabled: boolean = true) {
     if (Platform.OS === "android") {
       RNBluetoothManager.setBluetoothState(enabled);

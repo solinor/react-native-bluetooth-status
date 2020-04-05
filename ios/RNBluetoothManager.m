@@ -22,16 +22,15 @@
 
 #pragma mark Initialization
 
-- (instancetype)init
+- (instancetype)manualInit
 {
-    if (self = [super init]) {
-        self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:CBCentralManagerOptionShowPowerAlertKey]];
-    }
-
+    NSDictionary *options = @{CBCentralManagerOptionShowPowerAlertKey: @NO};
+    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
+    
     return self;
 }
 
-+ (BOOL)requiresMainQueueSetup
++ (BOOL) requiresMainQueueSetup
 {
     return YES;
 }
@@ -40,6 +39,10 @@ RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(initialize) {
     [self centralManagerDidUpdateState:self.centralManager];
+}
+
+RCT_EXPORT_METHOD(manualInitialization) {
+    [self manualInit];
 }
 
 - (NSString *) centralManagerStateToString: (int)state
