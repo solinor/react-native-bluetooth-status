@@ -105,7 +105,7 @@ export const useBluetoothStatus = () => {
     if (status !== undefined && isPending) {
       setPending(false);
     }
-  }, [status]);
+  }, [status, isPending]);
 
   return [status, isPending, setBluetoothState];
 };
