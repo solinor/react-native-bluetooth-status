@@ -1,106 +1,106 @@
 // @flow
-import { useState, useEffect } from 'react'
-import { Platform, NativeModules, NativeEventEmitter } from 'react-native'
-import waitUntil from '@cs125/wait-until'
+import { useState, useEffect } from "react";
+import { Platform, NativeModules, NativeEventEmitter } from "react-native";
+import waitUntil from "@cs125/wait-until";
 
-const { RNBluetoothManager } = NativeModules
+const { RNBluetoothManager } = NativeModules;
 
-const BT_STATUS_EVENT = 'bluetoothStatus'
+const BT_STATUS_EVENT = "bluetoothStatus";
 class BluetoothManager {
-	subscription: mixed
-	inited: boolean
-	bluetoothState:
-		| 'unknown'
-		| 'resetting'
-		| 'unsupported'
-		| 'unauthorized'
-		| 'off'
-		| 'on'
-		| 'unknown'
-	listener: function
+  subscription: mixed;
+  inited: boolean;
+  bluetoothState:
+    | "unknown"
+    | "resetting"
+    | "unsupported"
+    | "unauthorized"
+    | "off"
+    | "on"
+    | "unknown";
+  listener: function;
 
-	constructor() {
-		const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager)
-		this.subscription = bluetoothEvent.addListener(BT_STATUS_EVENT, (state) => {
-			const nativeState = Platform.OS === 'ios' ? state : state.status
-			this.bluetoothState = nativeState
-			if (this.listener) {
-				this.listener(this.bluetoothState === 'on')
-			}
-		})
-	}
+  constructor() {
+    const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager);
+    this.subscription = bluetoothEvent.addListener(BT_STATUS_EVENT, state => {
+      const nativeState = Platform.OS === "ios" ? state : state.status;
+      this.bluetoothState = nativeState;
+      if (this.listener) {
+        this.listener(this.bluetoothState === "on");
+      }
+    });
+  }
 
-	addListener(listener: function) {
-		this.listener = listener
-	}
+  addListener(listener: function) {
+    this.listener = listener;
+  }
 
-	removeListener() {
-		this.listener = undefined
-	}
+  removeListener() {
+    this.listener = undefined;
+  }
 
-	async state() {
-		this.manualInit()
-		return new Promise((resolve) => {
-			waitUntil()
-				.interval(100)
-				.times(10)
-				.condition(() => {
-					return this.bluetoothState !== undefined
-				})
-				.done(() => {
-					resolve(this.bluetoothState === 'on')
-				})
-		})
-	}
+  async state() {
+    this.manualInit()
+    return new Promise((resolve) => {
+      waitUntil()
+        .interval(100)
+        .times(10)
+        .condition(() => {
+          return this.bluetoothState !== undefined;
+        })
+        .done(() => {
+          resolve(this.bluetoothState === "on");
+        });
+    });
+  }
 
-	manualInit() {
-		if (Platform.OS === 'ios') {
-			if (!this.inited) {
-				RNBluetoothManager.manualInitialization()
-			}
-			this.inited = true
-		}
-	}
+  manualInit() {
+    if (Platform.OS === "ios") {
+      if(!this.inited) {
+        RNBluetoothManager.manualInitialization()
+      }
+      this.inited = true
+    }
+  }
+  
+  enable(enabled: boolean = true) {
+    if (Platform.OS === "android") {
+      RNBluetoothManager.setBluetoothState(enabled);
+    }
+  }
 
-	enable(enabled: boolean = true) {
-		if (Platform.OS === 'android') {
-			RNBluetoothManager.setBluetoothState(enabled)
-		}
-	}
-
-	async disable() {
-		return this.enable(false)
-	}
+  async disable() {
+    return this.enable(false);
+  }
 }
 
-export const BluetoothStatus = new BluetoothManager()
+export const BluetoothStatus = new BluetoothManager();
 
 const setBluetoothState = (enable: boolean = true) => {
-	if (Platform.OS === 'android') {
-		RNBluetoothManager.setBluetoothState(enable)
-	}
-}
+  if (Platform.OS === "android") {
+    RNBluetoothManager.setBluetoothState(enable);
+  }
+};
 
 export const useBluetoothStatus = () => {
-	const [status, setStatus] = useState(undefined)
-	const [isPending, setPending] = useState(true)
+  const [status, setStatus] = useState(undefined);
+  const [isPending, setPending] = useState(true);
 
-	useEffect(() => {
-		const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager)
-		const subscription = bluetoothEvent.addListener(BT_STATUS_EVENT, (state) => {
-			const nativeState = Platform.OS === 'ios' ? state : state.status
-			setStatus(nativeState === 'on')
-		})
-		return () => {
-			bluetoothEvent.removeSubscription(subscription)
-		}
-	}, [])
+  useEffect(() => {
+    const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager);
+    const subscription = bluetoothEvent.addListener(BT_STATUS_EVENT, state => {
+      const nativeState = Platform.OS === "ios" ? state : state.status;
+      setStatus(nativeState === "on");
+    });
+    return () => {
+      bluetoothEvent.removeSubscription(subscription);
+    };
+  }, []);
 
-	useEffect(() => {
-		if (status !== undefined && isPending) {
-			setPending(false)
-		}
-	}, [status])
+  useEffect(() => {
+    if (status !== undefined && isPending) {
+      setPending(false);
+    }
+  }, [status]);
 
-	return [status, isPending, setBluetoothState]
-}
+  return [status, isPending, setBluetoothState];
+};
