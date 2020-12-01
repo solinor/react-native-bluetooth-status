@@ -14,7 +14,7 @@ declare module 'react-native-bluetooth-status' {
 		constructor()
 		addListener(listener: Function): void
 		removeListener(): void
-		state(): Promise<unknown>
+		state(): Promise<boolean>
 		manualInit(): void
 		enable(enabled?: boolean): void
 		disable(): Promise<void>
