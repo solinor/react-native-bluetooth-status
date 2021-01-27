@@ -1,11 +1,6 @@
 // @flow
 import { useState, useEffect } from "react";
-import { Platform } from "react-native";
-import {
-  NativeModules,
-  DeviceEventEmitter,
-  NativeEventEmitter
-} from "react-native";
+import { Platform, NativeModules, NativeEventEmitter } from "react-native";
 import waitUntil from "@cs125/wait-until";
 
 const { RNBluetoothManager } = NativeModules;
@@ -45,7 +40,7 @@ class BluetoothManager {
 
   async state() {
     this.manualInit()
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       waitUntil()
         .interval(100)
         .times(10)
