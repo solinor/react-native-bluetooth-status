@@ -19,31 +19,41 @@
     bool hasListeners;
     NSString *stateName;
 }
-
-#pragma mark Initialization
-
-- (instancetype)manualInit
-{
-    NSDictionary *options = @{CBCentralManagerOptionShowPowerAlertKey: @NO};
-    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:options];
-    
-    return self;
-}
+RCT_EXPORT_MODULE();
 
 + (BOOL) requiresMainQueueSetup
 {
     return YES;
 }
 
-RCT_EXPORT_MODULE();
+RCT_EXPORT_METHOD(manualInitialization: (BOOL *)showPopup )
+{
+    [self createCentralManager:showPopup];
+}
+- (void)createCentralManager: (BOOL*) showPopup
+{
+    self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil options:@{CBCentralManagerOptionShowPowerAlertKey:[NSNumber numberWithBool:showPopup]}];
+}
 
-RCT_EXPORT_METHOD(initialize) {
+RCT_EXPORT_METHOD(removeInitialization)
+{
+    [self removeCentralManager];
+}
+- (void)removeCentralManager
+{
+    self.centralManager = nil;
+}
+
+RCT_EXPORT_METHOD(getStateAsync)
+{
+    [self getBTState];
+}
+- (void)getBTState
+{
+    if (!self.centralManager) [self createCentralManager:false];
     [self centralManagerDidUpdateState:self.centralManager];
 }
 
-RCT_EXPORT_METHOD(manualInitialization) {
-    [self manualInit];
-}
 
 - (NSString *) centralManagerStateToString: (int)state
 {
