@@ -4,7 +4,6 @@ import {
   NativeModules,
   NativeEventEmitter
 } from "react-native";
-import waitUntil from "@cs125/wait-until"
 import { BLUETOOTH_STATES, BT_STATUS_EVENT, ListenerFunction } from "./types"
 
 const { RNBluetoothManager } = NativeModules
@@ -45,17 +44,7 @@ class BluetoothManager {
 
   async getState(): Promise<boolean> {
     await RNBluetoothManager.getStateAsync()
-    return new Promise((resolve, reject) => {
-      waitUntil()
-        .interval(100)
-        .times(10)
-        .condition(() => {
-          return this.bluetoothState !== undefined
-        })
-        .done(() => {
-          resolve(this.isBTEnabled())
-        })
-    })
+    return this.isBTEnabled()
   }
   
   enable(status: boolean = true): void {
