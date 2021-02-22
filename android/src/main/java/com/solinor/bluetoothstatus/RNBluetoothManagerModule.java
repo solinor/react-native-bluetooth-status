@@ -34,6 +34,10 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule impleme
     private void sendEvent(ReactContext reactContext,
                            String eventName,
                            @Nullable WritableMap params) {
+        if (!reactContext.hasActiveCatalystInstance()) {
+            return;
+        }
+
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
