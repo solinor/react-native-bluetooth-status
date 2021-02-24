@@ -17,8 +17,9 @@ class BluetoothManager {
     const bluetoothEvent = new NativeEventEmitter(RNBluetoothManager)
     this.subscription = bluetoothEvent.addListener(BT_STATUS_EVENT, state => {
       const nativeState = Platform.OS === "ios" ? state : state.status
+      const isStatusChanged = nativeState && (this.bluetoothState !== nativeState)
       this.bluetoothState = nativeState
-      if (this.listener) {
+      if (this.listener && isStatusChanged) {
         this.listener(this.isBTEnabled())
       }
     })
