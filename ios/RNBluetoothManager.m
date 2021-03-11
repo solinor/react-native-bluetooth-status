@@ -44,14 +44,15 @@ RCT_EXPORT_METHOD(removeInitialization)
     self.centralManager = nil;
 }
 
-RCT_EXPORT_METHOD(getStateAsync)
+RCT_EXPORT_METHOD(getStateAsync:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [self getBTState];
+    resolve([self getBTState]);
 }
-- (void)getBTState
+- (NSString *)getBTState
 {
     if (!self.centralManager) [self createCentralManager:false];
-    [self centralManagerDidUpdateState:self.centralManager];
+    return [self centralManagerStateToString:self.centralManager.state];
 }
 
 

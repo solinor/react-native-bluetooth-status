@@ -46,7 +46,7 @@ class BluetoothManager {
   async getState(): Promise<boolean> {
     let btState = false
     if (Platform.OS === 'ios') {
-      await RNBluetoothManager.getStateAsync()
+      this.bluetoothState = await RNBluetoothManager.getStateAsync()
       btState = this.isBTEnabled()
     }
     if (Platform.OS === 'android') {
