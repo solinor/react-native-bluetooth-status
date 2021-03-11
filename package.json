@@ -1,6 +1,6 @@
 {
   "name": "react-native-bluetooth-status",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "React-Native library to query and manage bluetooth state of the device (iOS and Android)",
   "main": "index.ts",
   "scripts": {
