@@ -37,6 +37,7 @@ repositories {
 }
 
 dependencies {
+    implementation project(path: ':dxpshell')
     implementation 'com.facebook.react:react-native:+'
 }
 

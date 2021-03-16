@@ -37,16 +37,17 @@ class BluetoothManager {
     this.listener = null
   }
 
-  showBTPopupiOS (): void {
-    if (Platform.OS === "ios") {
-      RNBluetoothManager.manualInitialization(true)
-    }
+  showBTPopup (): Promise<void> {
+    return Platform.select({
+      ios: () => RNBluetoothManager.manualInitialization(true),
+      android: () => RNBluetoothManager.setBluetoothStateWithPopup()
+    })()
   }
 
   async getState(): Promise<boolean> {
     let btState = false
     if (Platform.OS === 'ios') {
-      this.bluetoothState = await RNBluetoothManager.getStateAsync()
+      await RNBluetoothManager.getStateAsync()
       btState = this.isBTEnabled()
     }
     if (Platform.OS === 'android') {
