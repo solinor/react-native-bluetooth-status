@@ -92,7 +92,7 @@ export const useBluetoothStatus = () => {
       setStatus(nativeState === "on");
     });
     return () => {
-      bluetoothEvent.removeSubscription(subscription);
+      subscription.remove();
     };
   }, []);
 
